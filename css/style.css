@@ -811,13 +811,14 @@ body{
 }
 /*MAP*/
 .map {
-    width: 1200px;
+    width: 100%;
     min-height: 416px;
     margin: 0 auto;
     margin-bottom: 70px;
 }
 .page-map {
    position: relative;
+   width: 100%;
 }
 .modal-content {
     position: absolute;
