@@ -785,7 +785,6 @@ body{
 }
 
 .main-footer {
-    position: relative;
     width: 100%;
     padding: 0;
     margin-top: 80px;
@@ -817,10 +816,13 @@ body{
     margin: 0 auto;
     margin-bottom: 70px;
 }
+.page-map {
+   position: relative;
+}
 .modal-content {
     position: absolute;
-    top: 70px;
-    left: 140px;
+    top: 60px;
+    left: 230px;
     width: 220px;
     padding: 30px 20px 20px 20px;
     font-family: 'Roboto', sans-serif;
@@ -828,7 +830,7 @@ body{
     color: #666666;
     font-size: 16px;
     line-height: 20px;
-    z-index: 50;
+    z-index: 1000;
 }
 .modal-content h3 {
     color: #000;
@@ -1098,6 +1100,7 @@ input, textarea {
 }
 */
 .catalog__content-list {
+    position: relative;
     width: 560px;
     float: right;
 }
@@ -1125,7 +1128,7 @@ input, textarea {
 	background: url("../images/Aviator-1.jpg") no-repeat center;
 }
 .catalog__content-item__2 {
-    position: relative;
+  position: relative;
 	background: url("../images/Sunset-1.jpg") no-repeat center;
 }
 .catalog__content-item__3 {
@@ -1193,10 +1196,11 @@ input, textarea {
     border-radius: 3px;
     text-transform: uppercase;
 }
+
 .modal-content-catalog {
     position: absolute;
-    top: 480px;
-    left: 883px;
+    top: 55px;
+    left: 328px;
     width: 150px;
     padding: 35px 30px 40px;
     text-align: center;
