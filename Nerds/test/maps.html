@@ -1,0 +1,933 @@
+ <!--<footer class="main-footer">
+        <div class="main-map" id="map">
+            <div class="modal-content">
+              <h3>NЁRDS DESIGN STUDIO</h3>
+              <p>191186, Санкт-Петербург,<br> ул. Б.Конюшенная, д. 19/8 <br>
+              </p>
+              <p class="tel">тел. +7(812) 275-75-75</p>
+              <a class="btn btn-1 btn-map">Напишите нам</a>
+        </div>
+        </div>
+        <div class="container container-social clearfix">
+            <div class="social sprite">
+                <a href="" class="btn-social btn-social-vk"></a>
+                <a href="" class="btn-social btn-social-fb"></a>
+                <a href="" class="btn-social btn-social-inst"></a>
+            </div>
+            <div class="footer-content">
+                <p class="footer-content-title">Давайте дружить, это выгодно!</p>
+                <p class="footer-content-text">Скидка 10% для друзей из соцсетей.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=40L-c1xf6zt09TdDrMfsE5d_rHUiOEhf&amp;width=1200&amp;height=416&id=map"></script> 
+            
+    <script>
+            ymaps.ready(function () {
+            var myMap = new ymaps.Map('map', {
+            center: [59.936246, 30.321114],
+            zoom: 17
+        }, {
+            searchControlProvider: 'yandex#search'
+        }),
+        myPlacemark = new ymaps.Placemark([59.936030, 30.325220], {
+            hintContent: 'Собственный значок метки',
+            balloonContent: 'Это красивая метка'
+        }, {
+            // Опции.
+            // Необходимо указать данный тип макета.
+            iconLayout: 'default#image',
+            // Своё изображение иконки метки.
+            iconImageHref: 'images/map.png',
+            // Размеры метки.
+            iconImageSize: [231, 190],
+            // Смещение левого верхнего угла иконки относительно
+            // её "ножки" (точки привязки).
+            iconImageOffset: [-51, -190]
+        });
+        myMap.geoObjects.add(myPlacemark);
+        });
+    </script>
+ -->           
+<!--================================================================================================-->
+	<!-- Для начала подключим API google maps ,так написано в руководстве, 
+	на там адрес дополняется ключем,после js через вопросительный знак( api/js/?sd=123),
+	я не знаю что это за ключ и как его получать, 
+	так что оставим как есть, без него-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjrARCMb06Ux-J6Oa9F6MCF7pPTMC57wY"></script>
+    <!--Теперь сам скрипт инициализации нашей карты, тут все настраивается-->
+	<script>
+	//Заносим в две переменные х и у значения координат, их можно посмотреть в гугл картах, в адресной строке
+	//браузера, я выбрал значения для Донецка
+	var x=59.9387942;
+	var y=30.3230833;
+	//Теперь создаем объект, о том что такое объект в js можно говорить долго, но если кратко, то это асоциативный массив,
+	//можешь воспринимать его в виде таблички в левой колонке названия полей, а в правой их значения
+	//   |--------|------------------------------------|
+	//   | поле   |значение                            |
+	//   |--------|------------------------------------|
+	//   | zoom   |  17                                |
+	//   |--------|------------------------------------|
+    //   | center | объект с двумя полями(вложенность) |
+	//   |--------|------------------------------------|
+	// он нам будет нужен для инициализации нашей карты
+			settings={
+	//Поле zoom  устанавливает масштаб, чем оно больше , тем более детально отображается карта		
+				zoom: 17,
+	//Второе поле center у нас тоже является объекто, это вполне нормально,объекты могут быть вложены друг в друга
+	//объект center имеет тоже 2 поля, те самые координаты, которые мы определяли выше
+				center: {
+					lat : 59.9387942,
+					lng : 30.3230833}
+				
+			};
+	//Вызываем конструктор нашей карты , он создает объект,все конструкторы создают объект....
+	//Конструкторы это те же методы или функции объекта, только они нужны для его создания и иногда инициализации его полей
+	//Наш конструктор карты принимает два параметра
+	// Первый  - Это наш блок с классом map, который мы разметили в теле нашего документа, его 
+	// Второй - Это настройки нашей карты, все то что мы делали до этого(координаты центра и масщтаб)
+		newMap =new google.maps.Map(document.querySelector(".map"),settings);
+	//Теперь newMap содержит ссылку на наш объект,то есть карту, эта переменная понадобится нам для настроек маркера
+	//если маркер не был бы нужен я написал бы просто так: new google.maps.Map(document.querySelector(".map"),settings);
+	//без newMap
+	
+	
+	//Теперь настроим наш маркер
+	// В переменную	markerImg положим ссылку на картинку нашего маркера , для удобства	
+			markerImg="images/map.png";
+			
+	// Зададим позицию для вывода маркера, я поставлю его в центр экрана, используя те же данные что и при инициализации карты
+			markerPos = {
+					lat : 59.9387942,
+					lng : 30.3230833};
+					
+	//Ну и наконец выводим на нашу карту маркер , вызваз его конструктор, может это и не конструктор, я не знаю что там внутри,
+	//но мне так проще, ты можешь считать это методом или функцией класса )
+	//Он принимает объект, объект с такими полями
+	// Первое поле - Позиция нашего курсора,то где он будет выводиться 
+	// Второе поле - Это карта на которую нужно вывести курсор
+	//Третье поле - Изображение маркера, наша картинка
+			new google.maps.Marker({position:markerPos,map:newMap,icon:markerImg})
+	
+	//Такие дела) 
+	</script>
+
+
+
+
+
+
+
+
+	<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,700&amp;subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+   
+    <header class="main-head">
+        <div class="container">
+           <div class="main-navigation clearfix">
+                <div class="logo">
+                   <img src="images/logo.png" alt="logo" width="139" height="56">
+                </div>
+                <nav class="main-menu">
+                    <ul>
+                        <li class="active"><a href="#">Студия</a></li>
+                        <li><a href="#">Клиенты</a></li>
+                        <li><a href="#">Магазин</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="cart">           
+                    <a href="#" class="icon-backet">Корзина</a>
+                </div>
+            </div>
+            <!--SLIDER  -->
+        <div class="slider">
+        <input type="radio" id="btn-1" name="toggle" checked>
+        <input type="radio" id="btn-2" name="toggle">
+        <input type="radio" id="btn-3" name="toggle">
+        <div class="slider-controls">
+          <label for="btn-1"></label>
+          <label for="btn-2"></label>
+          <label for="btn-3"></label>
+        </div>
+        <div class="slides">
+          <div class="slide">
+            <div class="slide-text">
+              <div class="slide-title">Долго, дорого, скрупулезно</div>
+              <p>Математически выверенный дизайн<br>
+  для вашего сайта или мобильного приложения.</p>
+              <a class="btn" href="#">Узнать больше</a>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="slide-text">
+              <div class="slide-title">Любите ли вы математику, как любим ее мы?</div>
+              <p>Нашим дизайнерам мы удаляем нейроны, ответственные за креатив, чтобы дать им возможность все просчитать</p>
+              <a class="btn" href="#">Узнать больше</a>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="slide-text">
+              <div class="slide-title">Только наркотики, <br>только хардкор!</div>
+              <p>Все дизайнерские решения в нашей компании принимаются только под воздействием качественных галлюциногенов</p>
+              <a class="btn" href="#">Узнать больше</a>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+        </header>
+
+    <main class="container">
+       <div class="content clearfix">
+        <section class="web-site">
+            <img src="images/web-site.jpg" alt="computer" width="240" height="124">
+            <h3 class="text-title">Веб-сайты</h3>
+            <p>Мир никогда не будет прежним после того как увидит ваш сайт</p>
+            <a href="#" class="btn btn-1">Заказать</a>
+        </section>
+        
+        <section class="application">
+            <img src="images/application.jpg" alt="application" width="240" height="124">
+            <h3 class="text-title">Приложения</h3>
+            <p>Покорите топ-10 приложений<br> в AppStore и Google Play</p>
+            <a href="#" class="btn btn-2">Заказать</a>
+        </section>
+        
+        <section class="presentation">
+            <img src="images/presentation.jpg" alt="presentation" width="240" height="124">
+            <h3 class="text-title">Презентации</h3>
+            <p>Вы даже не подозреваете, насколько Вы изумительны!</p>
+            <a href="#" class="btn btn-3">Заказать</a>
+        </section>
+        </div>
+        <div class="hr"></div>
+        <div class="content-text clearfix">
+            <p class="content-text-left">Мы &mdash; маленькая, но гордая дизайн&ndash;студия из Краснодара.</p>
+            <div class="content-text-2-right">
+                <img src="images/nerds-since.png" alt="logo" width="187" height="75">
+            </div>
+        </div>
+        <div class="content-text-2 clearfix">
+            <div class="content-text-2-left">
+                Исповедуем принципы минимализма и чистоты. Ставим математический расчет выше креатива. Работаем не покладая рук, как роботы.
+            </div>
+            <div class="since">Sinse 2004</div>
+        </div>
+        <div class="content-text-3 clearfix">
+           <div class="content-text-3-left">
+                <p class="content-text-3-up">Выполняем заказы на разработку:</p>
+                <ul class="text-list">
+                    <li>Веб-сайтов любой сложности</li>
+                    <li>Мобильных приложений для iOS и Android</li>
+                    <li>Слайдшоу и видео для корпоративных презентаций</li>
+                </ul>
+            </div>
+            <div class="content-text-3-right">
+                <p class="content-text-3-up">Как мы работаем</p>
+                <ul class="text-list">
+                    <li>С самоотдачей 146%</li>
+                    <li>Соблюдая сроки на 100%</li>
+                    <li>По предоплате 50%</li>
+                </ul>
+            </div>
+        </div>
+        <div class="hr-2"></div>
+        <div class="portfolio clearfix">
+            <div class="clukhanko"></div>
+            
+            <div class="htmlacademy"></div>
+            
+            <div class="barbershop"></div>
+        </div>        
+        <div class="hr-3"></div>
+        
+    </main>
+    <footer class="main-footer">
+        <div class="main-map" id="map">
+            <div class="modal-content">
+              <h3>NЁRDS DESIGN STUDIO</h3>
+              <p>191186, Санкт-Петербург,<br> ул. Б.Конюшенная, д. 19/8 <br>
+              </p>
+              <p class="tel">тел. +7(812) 275-75-75</p>
+              <a class="btn btn-1 btn-map">Напишите нам</a>
+        </div>
+        </div>
+        <div class="container container-social clearfix">
+            <div class="social sprite">
+                <a href="" class="btn-social btn-social-vk"></a>
+                <a href="" class="btn-social btn-social-fb"></a>
+                <a href="" class="btn-social btn-social-inst"></a>
+            </div>
+            <div class="footer-content">
+                <p class="footer-content-title">Давайте дружить, это выгодно!</p>
+                <p class="footer-content-text">Скидка 10% для друзей из соцсетей.</p>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=40L-c1xf6zt09TdDrMfsE5d_rHUiOEhf&amp;width=1200&amp;height=416&id=map"></script> 
+    <script>
+            ymaps.ready(function () {
+            var myMap = new ymaps.Map('map', {
+            center: [59.936246, 30.321114],
+            zoom: 17
+        }, {
+            searchControlProvider: 'yandex#search'
+        }),
+        myPlacemark = new ymaps.Placemark([59.936030, 30.325220], {
+            hintContent: 'Собственный значок метки',
+            balloonContent: 'Это красивая метка'
+        }, {
+            // Опции.
+            // Необходимо указать данный тип макета.
+            iconLayout: 'default#image',
+            // Своё изображение иконки метки.
+            iconImageHref: 'images/map.png',
+            // Размеры метки.
+            iconImageSize: [231, 190],
+            // Смещение левого верхнего угла иконки относительно
+            // её "ножки" (точки привязки).
+            iconImageOffset: [-51, -190]
+        });
+        myMap.geoObjects.add(myPlacemark);
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body{
+    min-width: 900px;
+    font-size: 16px;
+    line-height: 22px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #283136;
+    background: #fff;
+}
+.container {
+    width: 880px;
+    padding: 0 10px;
+    margin: 0 auto;
+}
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.main-head {
+    background: #eeeeee;
+    margin-bottom: 80px;
+}
+.main-navigation {
+    padding-top: 25px;
+}
+.logo {
+    width: 140px;
+    float: left;
+    margin-right: 20px;
+    
+}
+.main-menu {
+    min-width: 560px;
+    float: left;
+    text-transform: uppercase;
+}
+
+.main-menu .active {
+    position: relative;
+    background: none;
+}
+.active a {
+    display: block;
+}
+.main-menu .active a:hover {
+    background: none;
+}
+.main-menu .active::after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    bottom: 0;
+    left: 35px;
+    height: 3px;
+    background-color: #fb565a;
+}
+
+.main-menu ul {
+    list-style: none;
+    font-size: 0;
+}
+.main-menu li {
+    display: inline-block;
+    vertical-align: top;
+}
+.main-menu a {
+    display: block;
+    padding: 20px 15px;
+    margin: 0;
+    margin-left: 20px;
+    color: #283136;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 30px;
+    text-align: center;   
+}
+.main-menu a:hover {
+    color: #fb565a;
+}
+.main-menu a:active {
+    color: rgba(0, 0, 0, 0.4);
+}
+.main-menu a:visited {
+    border-bottom: 2px solid #fb565a;
+}
+
+.icon-backet {
+    display: inline-block;
+    padding: 15px 55px;
+    margin-left: 110px;
+    
+    vertical-align: top;
+    color: #283136;
+    text-decoration: none;
+    
+    position: relative;
+    bottom: 60px;
+    left: 650px;
+}
+.icon-backet::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    width: 45px;
+    height: 45px;
+    background: url("../images/icon-basket.png") no-repeat center;
+    background-position: 20px 28px;
+}
+.icon-backet:hover::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    width: 45px;
+    height: 45px;
+    background: url("../images/icon-basket-red.png") no-repeat center;
+    background-position: 20px 28px;
+}
+.cart a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #283136;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: right;
+}
+.cart a:hover {
+    color: #fb565a;
+}
+.cart a:active {
+    color: rgba(0, 0, 0, 0.4);
+}
+.cart a:visited {
+    border-bottom: 2px solid #fb565a;
+}
+.slider{
+    position: relative;
+    width: 880px;
+    height: 310px;
+    margin: 0 auto;
+}
+
+.slider input[type=radio] {
+    position: absolute;
+    opacity: 0;
+}
+.slider-controls{
+    position: absolute;
+    bottom: 95px;
+    left: 50%;
+    width: 200px;
+    height: 10px;
+    margin-left: -100px;
+    text-align: center;
+    z-index: 1000;
+}
+.slider-controls label{
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    margin: 0 3px;
+    background: #fff;
+    border: 3px solid #fff;
+    vertical-align: top;
+    border-radius: 50%;
+    cursor: pointer;
+}
+#btn-1:checked ~ .slider-controls label[for="btn-1"],
+#btn-2:checked ~ .slider-controls label[for="btn-2"],
+#btn-3:checked ~ .slider-controls label[for="btn-3"] { 
+    background: #c1c1c1;
+}
+.slide{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.slide-text{
+    width: 470px;
+    padding: 30px 0;
+    color: #283136;
+}
+
+.slide-title{
+    font-size: 36px;
+    line-height: 1;
+    font-weight: bold;
+    color: #000;
+}
+.slider p {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 22px;
+    color: #283136;   
+}
+.slide .btn{
+    display: block;
+    width: 240px;
+    padding: 10px 0;
+    margin-top: 25px;
+    font-size: 12px; 
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    background: #fb565a;
+    border-radius: 3px;
+}
+.slide:nth-child(1){
+    background-image: url("../images/sliderA.png");
+    background-repeat: no-repeat;
+    background-position: 100% 10px;
+}
+.slide:nth-child(2){
+    background-image: url("../images/sliderB.png");
+    background-repeat: no-repeat;
+    background-position: 100% 10px;
+}
+.slide:nth-child(3){
+    background-image: url("../images/sliderC.png");
+    background-repeat: no-repeat;
+    background-position: 100% 0;
+}
+.slide{
+    display: none;
+}
+#btn-1:checked ~ .slides .slide:nth-child(1) { 
+    display: block;
+}
+#btn-2:checked ~ .slides .slide:nth-child(2) { 
+    display: block;
+}
+#btn-3:checked ~ .slides .slide:nth-child(3) { 
+    display: block;
+}
+.content {
+   margin-bottom: 80px; 
+}
+.content h3 {
+    font-size: 18px;
+    line-height: 30px;
+}
+.content p {
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: bold;
+}
+.web-site {
+    width: 240px;
+    float: left;
+    margin-right: 80px;
+}
+.application {
+    width: 240px;
+    float: left;
+    margin-right: 80px;
+}
+.presentation {
+    width: 240px;
+    float: right;
+    margin-right: 0;
+}
+.text-title {
+    text-transform: uppercase;
+}
+.btn {
+    display: block;
+    width: 140px;
+    height: 38px;
+    margin-top: 27px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 38px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 3px;
+}
+.btn-1 {
+    background-color: #fb565a;
+}
+.btn-1:hover {
+    background-color: #d6494d;
+}
+.btn-1:active {
+    background-color: #b63538;
+}
+.btn-2 {
+    background-color: #00ca74;
+}
+.btn-2:hover {
+    background-color: #01a25e;
+}
+.btn-2:active {
+    background-color: #009053;
+}
+.btn-3 {
+    background-color: #efc84a;
+}
+.btn-3:hover {
+    background-color: #d6ae2c;
+}
+.btn-3:active {
+    background-color: #c09b24;
+}
+.content-text {
+    margin-bottom: 25px;
+}
+.content-text p {
+    font-size: 36px;
+    line-height: 36px;
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+.content-text-2 {
+    margin-bottom: 45px;
+}
+.content-text-left {
+    width: 620px;
+    float: left;
+}
+.content-text-2-right {
+    max-width: 260px;
+    float: right;
+    margin-right: 0;
+}
+.content-text-2-right img {
+    width: 187px;
+    height: 75px;
+    margin-right: 0;
+}
+.content-text-2 {
+    margin-bottom: 50px;
+}
+.content-text-2-left {
+    width: 620px;
+    float: left;
+    font-size: 16px;
+    line-height: 22px;
+}
+.content-text-2-right {
+    max-width: 260px;
+    float: right;
+    font-size: 16px;
+    line-height: 22px;
+    padding: 0 20px;
+}
+.content-text-2-right img {
+    width: 187px;
+    height: 75px;
+}
+.since {
+   width: 220px;
+   float: right;
+   position: relative;
+   text-align: center;
+   text-transform: uppercase;
+}
+.since::before {
+    left: 0;
+    content: "";
+    position: absolute;
+    width: 27%;
+    height: 3px;
+    top: 10px;
+    background-color: #eee;
+}
+.since::after {
+    right: 0;
+    content: "";
+    position: absolute;
+    width: 27%;
+    height: 3px;
+    top: 10px;
+    background-color: #eee;
+}
+.content-text-3 {
+    margin-bottom: 60px;
+}
+.content-text-3 p, .content-text-3 li{
+    padding: 10px 0;
+}
+.content-text-3 ul {
+    list-style: none;
+}
+.content-text-3-up {
+    text-transform: uppercase;
+}
+.content-text-3-left {
+    width: 620px;
+    float: left;
+}
+.content-text-3-right {
+    width: 260px;
+    float: right;
+}
+.text-list {
+    list-style: none;
+    margin-right: 10px;
+}
+.text-list li::before {
+    content: "";
+    position: relative;
+    width: 25px;
+    top: 10px;
+    right: 40px;
+    display: block;
+    border-bottom: 3px solid #fb565a;
+}
+.portfolio {
+    margin-bottom: 30px;
+}
+.clukhanko {
+    position: relative;
+    top: 25px;
+    float: left;
+    background-image: url("../images/spritesheet.png");
+    background-repeat: no-repeat;
+    display: block;
+    margin: 0 15px;
+    margin-right: 90px;
+    width: 198px;
+    height: 37px;
+    background-position: -5px -5px;
+}
+.clukhanko:active, .clukhanko:hover {
+    background-image: url("../images/spritesheet-2.png");
+    background-repeat: no-repeat;
+    background-position: -5px -105px;
+}
+.htmlacademy {
+    position: relative;
+    top: 10px;
+    float: left;
+    background-image: url("../images/spritesheet.png");
+    background-repeat: no-repeat;
+    display: block;
+    margin: 0 15px;
+    float: left;
+    width: 199px;
+    height: 68px;
+    background-position: -224px -5px;
+}
+.htmlacademy:active, .htmlacademy:hover {
+    background-image: url("../images/spritesheet-2.png");
+    background-repeat: no-repeat;
+    background-position: -224px -5px;
+}
+.barbershop {
+    width: 240px;
+    position: relative;
+    float: left;
+    background-image: url("../images/spritesheet.png");
+    background-repeat: no-repeat;
+    display: block;
+    margin: 0 15px;
+    float: right;
+    width: 209px;
+    height: 86px;
+    background-position: -5px -52px;
+}
+.barbershop:active, .barbershop:hover {
+    background-image: url("../images/spritesheet-2.png");
+    background-repeat: no-repeat;
+    background-position: -5px -5px;
+}
+
+.hr {
+    border-top: 3px solid #eeeeee;
+    margin-bottom: 50px;
+}
+.hr-2 {
+    margin-bottom: 40px;
+    border-top: 3px solid #eeeeee;
+}
+
+.hr-3 {
+    border-top: 3px solid #eeeeee;
+}
+.container-social {
+    margin-top: 0;
+    margin-bottom: 75px;
+}
+.sprite {
+    width: 300px;
+    float: left;
+    margin: 0;
+}
+.btn-social {
+    display: inline-block;
+    background-image: url(../images/spritesbtn.png);
+    background-repeat: no-repeat;
+}
+
+.btn-social-vk {
+    width: 62px;
+    height: 62px;
+    background-position: -438px -5px;
+    margin-right: 20px;
+}
+.btn-social-fb {
+    width: 62px;
+    height: 62px;
+    background-position: -5px -5px;
+    margin-right: 20px;
+}
+.btn-social-inst {
+    width: 62px;
+    height: 62px;
+    background-position: -221px -5px; 
+}
+.btn-social-vk:hover {
+    width: 62px;
+    height: 62px;
+    background-position: -584px -5px;
+}
+.btn-social-fb:hover {
+    width: 62px;
+    height: 62px;
+    background-position: -149px -5px;
+}
+.btn-social-inst:hover {
+    width: 62px;
+    height: 62px;
+    background-position: -366px -5px;
+}
+.btn-social-vk:active {
+    width: 62px;
+    height: 62px;
+    background-position: -511px -5px;
+}
+.btn-social-fb:active {
+    width: 62px;
+    height: 62px;
+    background-position: -77px -5px;
+}
+.btn-social-inst:active {
+    width: 62px;
+    height: 62px;
+    background-position: -293px -5px;
+}
+
+.main-footer {
+    width: 100%;
+    padding: 0;
+    margin-top: 80px;
+}
+
+.footer-content {
+    width: 580px;
+    float: right;
+    margin-top: 0;
+    padding: 0;
+}
+
+.footer-content-title {
+    margin-top: 0;
+    padding: 0;
+    font-size: 36px;
+    line-height: 36px;
+    color: #000;
+}
+.footer-content-text {
+    font-size: 16px;
+    line-height: 22px;
+    color: #283136;
+}
+/*MAP*/
+.main-map {
+    position: relative;
+    width: 1200px;
+    min-height: 416px;
+    margin: 0 auto;
+    margin-bottom: 70px;
+    z-index: 1;
+}
+.modal-content {
+    position: absolute;
+    bottom: 100px;
+    left: 160px;
+    width: 220px;
+    padding: 30px 20px 20px 20px;
+    font-family: 'Roboto', sans-serif;
+    background: #fff;
+    color: #666666;
+    font-size: 16px;
+    line-height: 20px;
+    z-index: 2;
+}
+.modal-content h3 {
+    color: #000;
+    font-size: 16px;
+    line-height: 30px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 20px;
+}
+.modal-content .tel {
+    margin-bottom: 20px;
+}
+.btn-map {
+    width: 204px;
+}

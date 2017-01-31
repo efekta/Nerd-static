@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Catalog</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,700&amp;subset=cyrillic" rel="stylesheet">
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="main-head">
+	<div class="container">
+  	<div class="main-navigation clearfix">
+    	<div class="logo">
+      	<img src="images/logo.png" alt="logo" width="139" height="56">
+    	</div>
+      <nav class="main-menu">
+      	<ul>
+        	<li class="active"><a href="#">Студия</a></li>
+        	<li><a href="#">Клиенты</a></li>
+        	<li><a href="#">Магазин</a></li>
+        	<li><a href="#">Контакты</a></li>
+      	</ul>
+      </nav>
+      <div class="cart">
+      	<a href="#" class="icon-backet">Корзина</a>
+      </div>
+   	</div>
+   	<h1 class="title-catalog">Добро пожаловать в магазин готовых макетов</h1>
+	</div>
+</header>
+<main class="container clearfix">
+	<section class="form-price">
+  	<b class="form-text">СТОИМОСТЬ:</b>
+    <div class="shape">
+    	<span class="range"><span class="range-green"></span></span>
+    	<span class="circle-min"></span>
+    	<span class="circle-max"></span>
+    </div>
+    <div class="price">
+    	<span class="price-value">ОТ</span>
+    	<input type="text" class="min-price" value="0">
+    	<span class="price-value">ДО</span>
+    	<input type="text" class="max-price" value="15 000">
+    </div>
+    <b class="form-text">СЕТКА:</b>
+  <form action="#" class="form-grid">
+  	<div class="form-list">
+    	<input type="radio" id="adaptive" name="text" checked class="form-list">
+    	<label for="adaptive">Адаптивная</label><br>
+  	</div>
+  	<div class="form-list">
+    	<input type="radio" id="fixed" name="text" class="form-list">
+    	<label for="fixed">Фиксированная</label><br>
+  	</div>
+  	<div class="form-list">
+    	<input type="radio" id="rubber" name="text" class="form-list">
+    	<label for="rubber">Резиновая</label>
+  	</div>
+   </form>
+   <b class="form-text">ОСОБЕННОСТИ:</b>
+   <form action="#" class="form-grid">
+   	<div class="form-list">
+    	<input type="checkbox" id="slider" checked class="form-list">
+    	<label for="slider">Слайдер</label><br>
+   	</div>
+   	<div class="form-list">
+    	<input type="checkbox" id="block" class="form-list">
+    	<label for="block">Блок преимуществ</label><br>
+   	</div>
+   	<div class="form-list">
+    	<input type="checkbox" id="news" checked class="form-list">
+    	<label for="news">Новости</label><br>
+   	</div>
+    <div class="form-list">
+    	<input type="checkbox" id="gallery" class="form-list">
+    	<label for="gallery">Галерея</label><br>
+    </div>
+    <div class="form-list">
+    	<input type="checkbox" id="basketgallery" class="form-list">
+    	<label for="basketgallery">Корзина</label><br>
+    </div>
+  </form>
+  <button class="form-btn">Показать</button>
+	</section>
+  <section class="catalog-item">
+  	<span class="catalog-item-sort">Сортировать:</span>
+   	<ul class="catalog-sort">
+    	<li><a href="#">по цене</a></li>
+    	<li><a href="#">по типу</a></li>
+    	<li><a href="#">по функционалу</a></li>
+   	</ul>
+   	<div class="sort">
+    	<a href="#" class="sort-down">Вниз</a>
+    	<a href="#" class="sort-up">Вверх</a>
+   	</div> 
+    </section>
+    <div class="catalog__content-list">
+    	<div class="catalog__content-item catalog__content-item__1">
+      	<div class="a"></div>
+      	<div class="a"></div>
+      	<div class="a"></div>
+      	<div class="catalog__content-item__header"></div>
+    	</div> 
+    	<div class="catalog__content-item catalog__content-item__2">
+      	<div class="a"></div>
+      	<div class="a"></div>
+      	<div class="a"></div>
+      	<div class="catalog__content-item__header"></div>
+    	</div>    
+      <div class="catalog__content-item catalog__content-item__3">
+      	<div class="a"></div>
+      	<div class="a"></div>
+      	<div class="a"></div>
+      	<div class="catalog__content-item__header"></div>
+      </div>           
+      <div class="catalog__content-item catalog__content-item__4">
+      	<div class="a"></div>
+      	<div class="a"></div>
+      	<div class="a"></div>
+      	<div class="catalog__content-item__header"></div>
+      </div>           
+      <div class="catalog__content-item catalog__content-item__5">
+      	<div class="a"></div>
+      	<div class="a"></div>
+      	<div class="a"></div>
+      	<div class="catalog__content-item__header"></div>
+      </div>    
+      <div class="catalog__content-item catalog__content-item__6">
+      	<div class="a"></div>
+      	<div class="a"></div>
+      	<div class="a"></div>
+      	<div class="catalog__content-item__header"></div>
+      </div>
+      <div class="paginator">
+      	<ul>
+        	<li class="paginator-catalog-active"><span href="#1">1</span></li>
+        	<li><a href="#2">2</a></li>
+        	<li><a href="#3">3</a></li>
+        	<li class="paginator-catalog-btn"><a href="#4">Следущая</a></li>                
+      	</ul>
+      </div>
+     </div>
+     <div class="modal-content modal-content-catalog">
+     	<h2>Sunset</h2>
+     	<p>Интернет-магазин<br> с личным кабинетом
+     	</p>
+     	<a class="btn-1 modal-content-btn">10000 Р.</a>
+    </div>
+</main> 
+<footer class="main-footer">
+	<div class="modal-content">
+  	<h3>NЁRDS DESIGN STUDIO</h3>
+  	<p>191186, Санкт-Петербург,
+    <br> ул. Б.Конюшенная, д. 19/8
+    <br>
+  	</p>
+  	<p class="tel">тел. +7(812) 275-75-75</p>
+  	<a class="btn btn-1 btn-map">Напишите нам</a>
+	</div>
+  <div class="map"></div>
+  <div class="container container-social clearfix">
+  <div class="social sprite">
+  	<a href="" class="btn-social btn-social-vk"></a>
+  	<a href="" class="btn-social btn-social-fb"></a>
+  	<a href="" class="btn-social btn-social-inst"></a>
+  </div>
+  <div class="footer-content">
+  	<p class="footer-content-title">Давайте дружить, это выгодно!</p>
+  	<p class="footer-content-text">Скидка 10% для друзей из соцсетей.</p>
+  </div>
+  </div>
+</footer>
+<div class="popup-content">
+	<div class="popup-content-close" title="Закрыть"></div>
+	<form class="login-form" action="/echo" method="post">
+		<div class="login-name">
+    	<label for="login">Ваше имя:</label><br>
+    	<input type="text" class="login-user" id="login" placeholder="Представьтесь, пожалуйста">
+		</div>
+		<div class="email-name">
+    	<label for="email">Ваш e-mail:</label><br>
+    	<input type="email" class="email-login" id="email" placeholder="Для отправки ответа">
+		</div>
+    <div class="content-form">
+    	<label for="text">Текст письма:</label><br>
+    	<textarea id="text" placeholder="В свободной форме"></textarea>
+		</div>
+		<div class="btn__block clearfix">
+    	<button type="submit" class="btn btn__popup btn__popup__submit">Отправить</button>
+    	<button type="submit" class="btn btn__popup btn__popup__close">Отмена</button>
+		</div>
+	</form>
+</div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjrARCMb06Ux-J6Oa9F6MCF7pPTMC57wY"></script>
+    <!--Теперь сам скрипт инициализации нашей карты, тут все настраивается-->
+    <script>
+        //Заносим в две переменные х и у значения координат, их можно посмотреть в гугл картах, в адресной строке
+        //браузера
+        var x = 59.9387942;
+        var y = 30.3230833;
+        //Теперь создаем объект, о том что такое объект в js можно говорить долго, но если кратко, то это асоциативный массив,
+        //можно воспринимать его в виде таблички в левой колонке названия полей, а в правой их значения
+        //   |--------|------------------------------------|
+        //   | поле   |значение                            |
+        //   |--------|------------------------------------|
+        //   | zoom   |  17                                |
+        //   |--------|------------------------------------|
+        //   | center | объект с двумя полями(вложенность) |
+        //   |--------|------------------------------------|
+        // он нам будет нужен для инициализации нашей карты
+        settings = {
+            //Поле zoom  устанавливает масштаб, чем оно больше , тем более детально отображается карта		
+            zoom: 17,
+            //Второе поле center у нас тоже является объекто, это вполне нормально,объекты могут быть вложены друг в друга
+            //объект center имеет тоже 2 поля, те самые координаты, которые мы определяли выше
+            center: {
+                lat: 59.939213,
+                lng: 30.318674
+            }
+
+        };
+        //Вызываем конструктор нашей карты , он создает объект,все конструкторы создают объект....
+        //Конструкторы это те же методы или функции объекта, только они нужны для его создания и иногда инициализации его полей
+        //Наш конструктор карты принимает два параметра
+        // Первый  - Это наш блок с классом map, который мы разметили в теле нашего документа, его 
+        // Второй - Это настройки нашей карты, все то что мы делали до этого(координаты центра и масщтаб)
+        newMap = new google.maps.Map(document.querySelector(".map"), settings);
+        //Теперь newMap содержит ссылку на наш объект,то есть карту, эта переменная понадобится нам для настроек маркера
+        //если маркер не был бы нужен я написал бы просто так: new google.maps.Map(document.querySelector(".map"),settings);
+        //без newMap
+
+
+        //Теперь настроим наш маркер
+        // В переменную	markerImg положим ссылку на картинку нашего маркера , для удобства	
+        markerImg = "images/map.png";
+
+        // Зададим позицию для вывода маркера, я поставлю его в центр экрана, используя те же данные что и при инициализации карты
+        markerPos = {
+            lat: 59.9387942,
+            lng: 30.3230833
+        };
+
+        //Ну и наконец выводим на нашу карту маркер , вызваз его конструктор, может это и не конструктор, я не знаю что там внутри,
+        //но мне так проще, ты можешь считать это методом или функцией класса )
+        //Он принимает объект, объект с такими полями
+        // Первое поле - Позиция нашего курсора,то где он будет выводиться 
+        // Второе поле - Это карта на которую нужно вывести курсор
+        //Третье поле - Изображение маркера, наша картинка
+        new google.maps.Marker({
+            position: markerPos,
+            map: newMap,
+            icon: markerImg
+        })
+
+    </script>
+ </body>
+</html>
