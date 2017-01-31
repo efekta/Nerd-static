@@ -1,3 +1,3 @@
 # Nerds
-Главная https://efekta.github.io/nerds-static/
-Каталог https://efekta.github.io/nerds-static/catalog
+Главная https://efekta.github.io/Nerds-static/
+Каталог https://efekta.github.io/Nerds-static/catalog
